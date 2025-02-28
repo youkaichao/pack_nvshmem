@@ -20,7 +20,7 @@ tar -xvf nvshmem_src_3.1.7-1.txz -C nvshmem_src --strip-components=1
 pushd nvshmem_src
 wget https://github.com/deepseek-ai/DeepEP/raw/main/third-party/nvshmem.patch
 git init
-git apply nvshmem.patch
+git apply -vvv nvshmem.patch
 
 # assume CUDA_HOME is set correctly
 GDRCOPY_HOME=$DEPS_DIR/gdrcopy_install \
