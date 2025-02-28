@@ -36,3 +36,10 @@ cmake -S . -B $DEPS_DIR/nvshmem_build/ -DCMAKE_INSTALL_PREFIX=$DEPS_DIR/nvshmem_
 cd $DEPS_DIR/nvshmem_build/
 make -j$(nproc)
 make install
+
+cd $ROOT_DIR
+cp -r $DEPS_DIR/nvshmem_install $ROOT_DIR/vllm_nvshmem
+touch $ROOT_DIR/vllm_nvshmem/__init__.py
+touch $ROOT_DIR/vllm_nvshmem/include/__init__.py
+touch $ROOT_DIR/vllm_nvshmem/lib/__init__.py
+touch $ROOT_DIR/vllm_nvshmem/share/__init__.py
