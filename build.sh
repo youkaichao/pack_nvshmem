@@ -12,6 +12,13 @@ make -j$(nproc)
 make prefix=$DEPS_DIR/gdrcopy_install install
 popd
 
+pushd packages
+sudo apt install devscripts -y
+CUDA=${CUDA_HOME:-/usr/local/cuda} ./build-deb-packages.sh
+sudo dpkg -i *.deb
+popd
+sudo ./insmod.sh
+
 # unzip to nvshmem_src
 mkdir -p nvshmem_src
 # nvshmem_src_3.1.7-1.txz comes from https://developer.nvidia.com/downloads/assets/secure/nvshmem/nvshmem_src_3.1.7-1.txz
@@ -43,3 +50,7 @@ touch $ROOT_DIR/vllm_nvshmem/__init__.py
 touch $ROOT_DIR/vllm_nvshmem/include/__init__.py
 touch $ROOT_DIR/vllm_nvshmem/lib/__init__.py
 touch $ROOT_DIR/vllm_nvshmem/share/__init__.py
+# bin is too large, remove it
+rm -rf $ROOT_DIR/vllm_nvshmem/bin
+# remove symbolic links
+find $ROOT_DIR/vllm_nvshmem/lib -type l -exec ls -l {} \; -exec rm {} \;
