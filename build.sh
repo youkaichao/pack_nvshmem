@@ -9,7 +9,7 @@ mkdir -p gdrcopy_src
 tar -xvf v2.4.4.tar.gz -C gdrcopy_src --strip-components=1
 pushd gdrcopy_src
 make -j$(nproc)
-sudo make prefix=$DEPS_DIR/gdrcopy_install install
+make prefix=$DEPS_DIR/gdrcopy_install install
 popd
 
 # unzip to nvshmem_src
