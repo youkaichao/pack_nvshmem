@@ -12,15 +12,18 @@ make -j$(nproc)
 sudo make prefix=$DEPS_DIR/gdrcopy_install install
 popd
 
-wget https://developer.nvidia.com/downloads/assets/secure/nvshmem/nvshmem_src_3.1.7-1.txz
 # unzip to nvshmem_src
 mkdir -p nvshmem_src
+# nvshmem_src_3.1.7-1.txz comes from https://developer.nvidia.com/downloads/assets/secure/nvshmem/nvshmem_src_3.1.7-1.txz
+cp $ROOT_DIR/nvshmem_src_3.1.7-1.txz nvshmem_src_3.1.7-1.txz
 tar -xvf nvshmem_src_3.1.7-1.txz -C nvshmem_src --strip-components=1
 pushd nvshmem_src
 wget https://github.com/deepseek-ai/DeepEP/raw/main/third-party/nvshmem.patch
+git init
 git apply nvshmem.patch
 
-GDRCOPY_HOME=$DEPS_DIR/gdrcopy_install && \
+# assume CUDA_HOME is set correctly
+GDRCOPY_HOME=$DEPS_DIR/gdrcopy_install \
 NVSHMEM_SHMEM_SUPPORT=0 \
 NVSHMEM_UCX_SUPPORT=0 \
 NVSHMEM_USE_NCCL=0 \
