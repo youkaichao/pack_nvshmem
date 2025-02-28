@@ -45,12 +45,6 @@ make -j$(nproc)
 make install
 
 cd $ROOT_DIR
-cp -r $DEPS_DIR/nvshmem_install $ROOT_DIR/vllm_nvshmem
-touch $ROOT_DIR/vllm_nvshmem/__init__.py
-touch $ROOT_DIR/vllm_nvshmem/include/__init__.py
-touch $ROOT_DIR/vllm_nvshmem/lib/__init__.py
-touch $ROOT_DIR/vllm_nvshmem/share/__init__.py
-# bin is too large, remove it
-rm -rf $ROOT_DIR/vllm_nvshmem/bin
-# remove symbolic links
-find $ROOT_DIR/vllm_nvshmem/lib -type l -exec ls -l {} \; -exec rm {} \;
+export NVSHMEM_DIR=$DEPS_DIR/nvshmem_install
+export LD_LIBRARY_PATH=$NVSHMEM_DIR/lib:$LD_LIBRARY_PATH
+export PATH=$NVSHMEM_DIR/bin:$PATH
