@@ -4,7 +4,7 @@ cd $DEPS_DIR/gdrcopy_src
 sudo ./insmod.sh
 # run gdrcopy_copybw to test the installation
 $DEPS_DIR/gdrcopy_install/bin/gdrcopy_copybw
-sudo echo 'options nvidia NVreg_EnableStreamMemOPs=1 NVreg_RegistryDwords="PeerMappingOverride=1;"' > /etc/modprobe.d/nvidia.conf
+echo 'options nvidia NVreg_EnableStreamMemOPs=1 NVreg_RegistryDwords="PeerMappingOverride=1;"' | sudo tee -a /etc/modprobe.d/nvidia.conf
 sudo update-initramfs -u
 
 echo "Please reboot the system to apply the changes"
