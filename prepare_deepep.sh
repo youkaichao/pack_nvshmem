@@ -1,7 +1,5 @@
-# usage: ./prepare_deepep.sh host|container
-# host: install gdrcopy and nvshmem on host, especially the gdrcopy driver, and then reboot the host
-# container: install gdrcopy and nvshmem in container, no need to install the driver
-# default: container
+# usage: ./prepare_deepep.sh
+# install gdrcopy and nvshmem
 # after execution, there will be a `deps` directory in the current directory, which contains:
 # - gdrcopy_install: gdrcopy installation
 # - nvshmem_install: nvshmem installation
@@ -14,6 +12,7 @@
 # - NVSHMEM_DIR: nvshmem installation directory
 # - LD_LIBRARY_PATH: to add nvshmem library path
 # - PATH: to add nvshmem binary path
+# then, please also execute ./prepare_deepep_host.sh to install the host-side drivers and reboot the system
 set -ex
 INSTALL_LOCATION=$1
 if [ -z "$INSTALL_LOCATION" ]; then
@@ -40,14 +39,6 @@ CUDA=${CUDA_HOME:-/usr/local/cuda} ./build-deb-packages.sh
 sudo dpkg -i *.deb
 popd
 
-# install gdrcopy driver
-if [ "$INSTALL_LOCATION" == "host" ]; then
-    sudo ./insmod.sh
-    # run gdrcopy_copybw to test the installation
-    $DEPS_DIR/gdrcopy_install/bin/gdrcopy_copybw
-    sudo echo 'options nvidia NVreg_EnableStreamMemOPs=1 NVreg_RegistryDwords="PeerMappingOverride=1;"' > /etc/modprobe.d/nvidia.conf
-    sudo update-initramfs -u
-fi
 popd
 
 # install nvshmem

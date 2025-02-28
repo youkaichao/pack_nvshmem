@@ -3,7 +3,8 @@
 A script to build and use [DeepEP](https://github.com/deepseek-ai/DeepEP)
 
 ```bash
-./prepare.sh host
+./prepare.sh
+./prepare_deepep_host.sh # on the host
 # according to the output, set environment variables
 git clone https://github.com/deepseek-ai/DeepEP
 cd DeepEP
