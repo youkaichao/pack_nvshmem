@@ -1,3 +1,4 @@
+set -ex
 export ROOT_DIR=$(pwd)
 export DEPS_DIR=$ROOT_DIR/deps
 cd $DEPS_DIR/gdrcopy_src
