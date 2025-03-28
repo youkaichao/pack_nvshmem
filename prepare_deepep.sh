@@ -6,7 +6,7 @@
 # - nvshmem_build: nvshmem build directory
 # - nvshmem_src: nvshmem source code
 # - gdrcopy_src: gdrcopy source code
-# - nvshmem_src_3.1.7-1.txz: nvshmem source code package
+# - nvshmem_src_3.2.5-1.txz: nvshmem source code package
 # - v2.4.4.tar.gz: gdrcopy source code package
 # In the end, users should set the following environment variables:
 # - NVSHMEM_DIR: nvshmem installation directory
@@ -43,8 +43,8 @@ popd
 
 # install nvshmem
 mkdir -p nvshmem_src
-wget https://developer.download.nvidia.com/compute/redist/nvshmem/3.1.7/source/nvshmem_src_3.1.7-1.txz
-tar -xvf nvshmem_src_3.1.7-1.txz -C nvshmem_src --strip-components=1
+wget https://developer.download.nvidia.com/compute/redist/nvshmem/3.2.5/source/nvshmem_src_3.2.5-1.txz
+tar -xvf nvshmem_src_3.2.5-1.txz -C nvshmem_src --strip-components=1
 pushd nvshmem_src
 wget https://github.com/deepseek-ai/DeepEP/raw/main/third-party/nvshmem.patch
 git init
